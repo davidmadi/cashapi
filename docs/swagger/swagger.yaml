@@ -57,7 +57,7 @@ paths:
       consumes:
       - application/json
       description: Cria um pagamento
-      operationId: get-string-by-int
+      operationId: payment-create
       parameters:
       - description: Account ID
         in: path

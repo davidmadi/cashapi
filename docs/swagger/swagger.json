@@ -58,7 +58,7 @@
                     "application/json"
                 ],
                 "summary": "Cria um pagamento",
-                "operationId": "get-string-by-int",
+                "operationId": "payment-create",
                 "parameters": [
                     {
                         "type": "integer",

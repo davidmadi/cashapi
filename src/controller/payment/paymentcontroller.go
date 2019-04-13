@@ -9,7 +9,7 @@ import (
 // Create godoc
 // @Summary Cria um pagamento
 // @Description Cria um pagamento
-// @ID get-string-by-int
+// @ID payment-create
 // @Accept  json
 // @Produce  json
 // @Param id path int true "Account ID"

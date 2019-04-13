@@ -1,6 +1,8 @@
 package authenticationcontroller
 
 import (
+	loginmodel "cashapi/src/model/login"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +18,12 @@ import (
 // @Header 200 {string} Token "qwerty"
 // @Router /connect/token [post]
 func Create(ctx *gin.Context) {
-	ctx.JSON(200, gin.H{
-		"Id":      1,
-		"Usuario": "davizera"})
+	loginRequest := loginmodel.LoginRequest{
+		Login:    ctx.PostForm("Login"),
+		Password: ctx.PostForm("Password")}
+
+	loginResponse := loginmodel.LoginResponse{
+		Token: loginRequest.Password}
+
+	ctx.JSON(200, loginResponse)
 }

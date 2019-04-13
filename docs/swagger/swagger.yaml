@@ -1,0 +1,79 @@
+definitions:
+  loginmodel.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  paymentmodel.PaymentModel:
+    properties:
+      id:
+        example: 1
+        format: int64
+        type: integer
+      name:
+        example: account name
+        type: string
+      uuid:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        format: uuid
+        type: string
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /connect/token:
+    post:
+      consumes:
+      - application/json
+      description: Efetua login
+      operationId: connect-token
+      parameters:
+      - description: Login
+        in: path
+        name: Login
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: Password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/loginmodel.LoginResponse'
+            type: object
+      summary: Efetua login
+  /payment/create:
+    post:
+      consumes:
+      - application/json
+      description: Cria um pagamento
+      operationId: get-string-by-int
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/paymentmodel.PaymentModel'
+            type: object
+      summary: Cria um pagamento

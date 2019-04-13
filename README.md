@@ -3,6 +3,6 @@ Cash payment api with go
 
 #Rodar o criador do swagger
 
-##/Users/davidmadi/go/bin/swag init
+##/%GO_PATH%/swag init
 
 #go run main.go

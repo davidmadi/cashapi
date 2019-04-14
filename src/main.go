@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	logincontroller "cashapi/src/controller/authentication"
+	authenticationcontroller "cashapi/src/controller/authentication"
 	paymentcontroller "cashapi/src/controller/payment"
 
 	"github.com/labstack/echo"
@@ -35,7 +35,7 @@ func main() {
 
 	r.GET("/swagger/*any", ginSwagger.CustomWrapHandler(config, swaggerFiles.Handler))
 
-	r.POST("/connect/token", logincontroller.Create)
+	r.POST("/connect/token", authenticationcontroller.Create)
 
 	r.POST("/payment/create", paymentcontroller.Create)
 

@@ -4,7 +4,7 @@ import "encoding/json"
 
 //LoginRequest request struct
 type LoginRequest struct {
-	Login    string `form:"login" json:"user"`
+	Login    string `form:"login" json:"login"`
 	Password string `form:"password" json:"password"`
 }
 

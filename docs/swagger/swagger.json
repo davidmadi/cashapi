@@ -17,18 +17,14 @@
                 "operationId": "connect-token",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Login",
-                        "name": "Login",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password",
-                        "name": "Password",
-                        "in": "path",
-                        "required": true
+                        "description": "LoginRequest",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/loginmodel.LoginRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -87,6 +83,17 @@
         }
     },
     "definitions": {
+        "loginmodel.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
         "loginmodel.LoginResponse": {
             "type": "object",
             "properties": {

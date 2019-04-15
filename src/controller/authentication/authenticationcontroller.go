@@ -2,6 +2,7 @@ package authenticationcontroller
 
 import (
 	loginmodel "cashapi/src/model/login"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,20 +11,21 @@ import (
 // @Summary Efetua login
 // @Description Efetua login
 // @ID connect-token
-// @Accept  json
-// @Produce  json
-// @Param Login path string true "Login"
-// @Param Password path string true "Password"
+// @Accept json
+// @Produce json
+// @Param body body loginmodel.LoginRequest true "LoginRequest"
 // @Success 200 {object} loginmodel.LoginResponse
 // @Header 200 {string} Token "qwerty"
 // @Router /connect/token [post]
-func Create(ctx *gin.Context) {
-	loginRequest := loginmodel.LoginRequest{
-		Login:    ctx.PostForm("Login"),
-		Password: ctx.PostForm("Password")}
+func Create(c *gin.Context) {
+	var json loginmodel.LoginRequest
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	loginResponse := loginmodel.LoginResponse{
-		Token: loginRequest.Password}
+		Token: json.Password}
 
-	ctx.JSON(200, loginResponse)
+	c.JSON(200, loginResponse)
 }

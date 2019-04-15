@@ -1,4 +1,11 @@
 definitions:
+  loginmodel.LoginRequest:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
   loginmodel.LoginResponse:
     properties:
       token:
@@ -29,16 +36,13 @@ paths:
       description: Efetua login
       operationId: connect-token
       parameters:
-      - description: Login
-        in: path
-        name: Login
+      - description: LoginRequest
+        in: body
+        name: body
         required: true
-        type: string
-      - description: Password
-        in: path
-        name: Password
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/loginmodel.LoginRequest'
+          type: object
       produces:
       - application/json
       responses:

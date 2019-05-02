@@ -1,6 +1,9 @@
 package loginmodel
 
-import "encoding/json"
+import (
+	"cashapi/src/database/connection"
+	"encoding/json"
+)
 
 //LoginRequest request struct
 type LoginRequest struct {
@@ -17,4 +20,21 @@ type LoginResponse struct {
 func (model *LoginRequest) ToJSON() string {
 	by, _ := json.Marshal(model)
 	return string(by)
+}
+
+//Authenticate the user
+func (model *LoginRequest) Authenticate() LoginResponse {
+
+	response := LoginResponse{
+		Token: ""}
+
+	_, err := connection.Open()
+	if err != nil {
+		return response
+	}
+
+	response.Token = "12345"
+
+	return response
+
 }

@@ -10,6 +10,8 @@ definitions:
     properties:
       token:
         type: string
+      valid:
+        type: boolean
     type: object
   paymentmodel.PaymentModel:
     properties:

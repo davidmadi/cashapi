@@ -18,14 +18,13 @@ import (
 // @Header 200 {string} Token "qwerty"
 // @Router /connect/token [post]
 func Create(c *gin.Context) {
-	var json loginmodel.LoginRequest
-	if err := c.ShouldBindJSON(&json); err != nil {
+	var loginRequest loginmodel.LoginRequest
+	if err := c.ShouldBindJSON(&loginRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	loginResponse := loginmodel.LoginResponse{
-		Token: json.Password}
+	loginResponse := loginRequest.Authenticate()
 
 	c.JSON(200, loginResponse)
 }

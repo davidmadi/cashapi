@@ -99,6 +99,9 @@
             "properties": {
                 "token": {
                     "type": "string"
+                },
+                "valid": {
+                    "type": "boolean"
                 }
             }
         },

@@ -20,26 +20,40 @@ func Open() (Connection, error) {
 	con := Connection{
 		DB:     dbCon,
 		opened: false}
+	if err != nil {
+		log.Fatal(err)
+		return con, err
+	}
 
+	err = dbCon.Ping()
 	if err != nil {
 		log.Fatal(err)
 		return con, err
 	}
 	con.opened = true
-
 	return con, nil
 }
 
 //ExecuteQuery given the sql
-func (con Connection) ExecuteQuery(sql string, list interface{}) bool {
+func (con Connection) ExecuteQuery(sql string) (*sql.Rows, bool) {
 
 	rows, err := con.DB.Query(sql)
 	if err != nil {
 		log.Fatal(err)
-		return false
+		return nil, false
 	}
 
-	rows.Scan(list)
-	return true
+	//rows.Scan(list)
+	return rows, true
 
+}
+
+//Close the connection
+func (con Connection) Close() bool {
+	error := con.DB.Close()
+	if error != nil {
+		log.Fatalf("Erro on closing db connection %v", error)
+		return false
+	}
+	return true
 }

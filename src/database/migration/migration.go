@@ -4,17 +4,26 @@ import (
 	"cashapi/src/database/connection"
 	"database/sql"
 	"log"
+
+	"github.com/jinzhu/gorm"
 	//_ "github.com/lib/pq"
 )
+
+type Group struct {
+	gorm.Model
+	Code  string
+	Price uint
+}
 
 func Main() {
 
 }
 
 func init() {
+
 	//connStr := "user=root dbname=cashdb password=hagadol23 sslmode=disable port=5432"
 	con, err := connection.Open()
-	db := con.DB
+	db := con.DB.DB()
 	if err != nil {
 		log.Fatal(err)
 		return

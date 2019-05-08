@@ -5,8 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	authenticationcontroller "cashapi/src/controller/authentication"
-	paymentcontroller "cashapi/src/controller/payment"
+	"cashapi/src/controller/authentication"
+	"cashapi/src/controller/user"
+	"cashapi/src/controller/payment"
 
 	"github.com/labstack/echo"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -40,9 +41,10 @@ func main() {
 
 	r.GET("/swagger/*any", ginSwagger.CustomWrapHandler(config, swaggerFiles.Handler))
 
-	r.POST("/connect/token", authenticationcontroller.Create)
+	r.POST("/connect/token", authenticationcontroller.Authenticate)
 
 	r.POST("/payment/create", paymentcontroller.Create)
+	r.POST("/user/create", usercontroller.Create)
 
 	r.Run(":8080")
 

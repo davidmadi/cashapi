@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Create godoc
+// Authenticate godoc
 // @Summary Efetua login
 // @Description Efetua login
 // @ID connect-token
@@ -17,7 +17,7 @@ import (
 // @Success 200 {object} loginmodel.LoginResponse
 // @Header 200 {string} Token "qwerty"
 // @Router /connect/token [post]
-func Create(c *gin.Context) {
+func Authenticate(c *gin.Context) {
 	var loginRequest loginmodel.LoginRequest
 	if err := c.ShouldBindJSON(&loginRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

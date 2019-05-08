@@ -4,28 +4,31 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 )
 
 type Connection struct {
-	DB     *sql.DB
+	DB     *gorm.DB
 	opened bool
 }
 
 //Open postgres connection
 func Open() (Connection, error) {
+
 	connStr := "user=root dbname=cashdb password=hagadol23 sslmode=disable port=5432"
-	dbCon, err := sql.Open("postgres", connStr)
+	dbCon, err := gorm.Open("postgres", connStr)
 
 	con := Connection{
 		DB:     dbCon,
 		opened: false}
+
 	if err != nil {
 		log.Fatal(err)
 		return con, err
 	}
 
-	err = dbCon.Ping()
+	err = dbCon.DB().Ping()
 	if err != nil {
 		log.Fatal(err)
 		return con, err
@@ -36,8 +39,7 @@ func Open() (Connection, error) {
 
 //ExecuteQuery given the sql
 func (con Connection) ExecuteQuery(sql string) (*sql.Rows, bool) {
-
-	rows, err := con.DB.Query(sql)
+	rows, err := con.DB.DB().Query(sql)
 	if err != nil {
 		log.Fatal(err)
 		return nil, false
@@ -45,7 +47,6 @@ func (con Connection) ExecuteQuery(sql string) (*sql.Rows, bool) {
 
 	//rows.Scan(list)
 	return rows, true
-
 }
 
 //Close the connection

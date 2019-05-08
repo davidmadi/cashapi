@@ -27,6 +27,13 @@ definitions:
         format: uuid
         type: string
     type: object
+  usermodel.User:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
 info:
   contact: {}
   license: {}
@@ -83,3 +90,30 @@ paths:
             $ref: '#/definitions/paymentmodel.PaymentModel'
             type: object
       summary: Cria um pagamento
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      description: Cria usuário
+      operationId: connect-token
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/usermodel.User'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/usermodel.User'
+            type: object
+      summary: Cria usuario

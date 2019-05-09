@@ -13,7 +13,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param id path int true "Account ID"
-// @Success 200 {object} paymentmodel.PaymentModel
+// @Success 200 {object} model.PaymentModel
 // @Header 200 {string} Token "qwerty"
 // @Router /payment/create [post]
 func Create(ctx *gin.Context) {

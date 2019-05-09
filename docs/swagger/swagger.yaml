@@ -1,24 +1,25 @@
 definitions:
-  loginmodel.LoginRequest:
+  model.Group:
+    properties:
+      name:
+        type: string
+    type: object
+  model.LoginRequest:
     properties:
       login:
         type: string
       password:
         type: string
     type: object
-  loginmodel.LoginResponse:
+  model.LoginResponse:
     properties:
       token:
         type: string
       valid:
         type: boolean
     type: object
-  paymentmodel.PaymentModel:
+  model.PaymentModel:
     properties:
-      id:
-        example: 1
-        format: int64
-        type: integer
       name:
         example: account name
         type: string
@@ -27,10 +28,12 @@ definitions:
         format: uuid
         type: string
     type: object
-  usermodel.User:
+  model.User:
     properties:
       email:
         type: string
+      groupID:
+        type: integer
       name:
         type: string
     type: object
@@ -50,7 +53,7 @@ paths:
         name: body
         required: true
         schema:
-          $ref: '#/definitions/loginmodel.LoginRequest'
+          $ref: '#/definitions/model.LoginRequest'
           type: object
       produces:
       - application/json
@@ -62,7 +65,7 @@ paths:
               description: qwerty
               type: string
           schema:
-            $ref: '#/definitions/loginmodel.LoginResponse'
+            $ref: '#/definitions/model.LoginResponse'
             type: object
       summary: Efetua login
   /payment/create:
@@ -87,7 +90,7 @@ paths:
               description: qwerty
               type: string
           schema:
-            $ref: '#/definitions/paymentmodel.PaymentModel'
+            $ref: '#/definitions/model.PaymentModel'
             type: object
       summary: Cria um pagamento
   /user/create:
@@ -95,14 +98,14 @@ paths:
       consumes:
       - application/json
       description: Cria usuário
-      operationId: connect-token
+      operationId: user-create
       parameters:
       - description: User
         in: body
         name: body
         required: true
         schema:
-          $ref: '#/definitions/usermodel.User'
+          $ref: '#/definitions/model.User'
           type: object
       produces:
       - application/json
@@ -114,6 +117,26 @@ paths:
               description: qwerty
               type: string
           schema:
-            $ref: '#/definitions/usermodel.User'
+            $ref: '#/definitions/model.User'
             type: object
       summary: Cria usuario
+  /user/groups:
+    get:
+      consumes:
+      - application/json
+      description: Lista de grupo de usuarios
+      operationId: user-create
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            items:
+              $ref: '#/definitions/model.Group'
+            type: array
+      summary: Lista grupo de usuarios

@@ -23,7 +23,7 @@
                         "required": true,
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/loginmodel.LoginRequest"
+                            "$ref": "#/definitions/model.LoginRequest"
                         }
                     }
                 ],
@@ -32,7 +32,7 @@
                         "description": "OK",
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/loginmodel.LoginResponse"
+                            "$ref": "#/definitions/model.LoginResponse"
                         },
                         "headers": {
                             "Token": {
@@ -69,7 +69,7 @@
                         "description": "OK",
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/paymentmodel.PaymentModel"
+                            "$ref": "#/definitions/model.PaymentModel"
                         },
                         "headers": {
                             "Token": {
@@ -91,7 +91,7 @@
                     "application/json"
                 ],
                 "summary": "Cria usuario",
-                "operationId": "connect-token",
+                "operationId": "user-create",
                 "parameters": [
                     {
                         "description": "User",
@@ -100,7 +100,7 @@
                         "required": true,
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/usermodel.User"
+                            "$ref": "#/definitions/model.User"
                         }
                     }
                 ],
@@ -109,7 +109,37 @@
                         "description": "OK",
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/usermodel.User"
+                            "$ref": "#/definitions/model.User"
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/groups": {
+            "get": {
+                "description": "Lista de grupo de usuarios",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Lista grupo de usuarios",
+                "operationId": "user-create",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Group"
+                            }
                         },
                         "headers": {
                             "Token": {
@@ -123,7 +153,15 @@
         }
     },
     "definitions": {
-        "loginmodel.LoginRequest": {
+        "model.Group": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.LoginRequest": {
             "type": "object",
             "properties": {
                 "login": {
@@ -134,7 +172,7 @@
                 }
             }
         },
-        "loginmodel.LoginResponse": {
+        "model.LoginResponse": {
             "type": "object",
             "properties": {
                 "token": {
@@ -145,14 +183,9 @@
                 }
             }
         },
-        "paymentmodel.PaymentModel": {
+        "model.PaymentModel": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "example": 1
-                },
                 "name": {
                     "type": "string",
                     "example": "account name"
@@ -164,11 +197,14 @@
                 }
             }
         },
-        "usermodel.User": {
+        "model.User": {
             "type": "object",
             "properties": {
                 "email": {
                     "type": "string"
+                },
+                "groupID": {
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"

@@ -24,10 +24,11 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	if userRequest.Insert() {
-		c.JSON(200, 0)
+	userResp, err := userRequest.Insert()
+	if err == nil {
+		c.JSON(200, userResp)
 	} else {
-		c.JSON(500, 0)
+		c.JSON(500, err)
 	}
 }
 

@@ -2,6 +2,7 @@ package model
 
 import (
 	"cashapi/src/database/connection"
+	"errors"
 
 	"log"
 
@@ -11,9 +12,10 @@ import (
 // User model
 type User struct {
 	gorm.Model
-	name    string
-	email   string
-	GroupID uint
+	Name     string
+	Email    string
+	Password string
+	GroupID  uint
 }
 
 // Group model
@@ -23,17 +25,20 @@ type Group struct {
 }
 
 // Insert user
-func (u *User) Insert() bool {
+func (u *User) Insert() (*User, error) {
 
 	con, err := connection.Open()
 	if err != nil {
 		log.Fatal(err)
-		return false
+		return nil, err
 	}
 
 	con.Create(&u)
-	con.Close()
-	return u.ID > 0
+	if u.ID > 0 {
+		return u, nil
+	}
+
+	return nil, errors.New("")
 }
 
 // ListGroups all

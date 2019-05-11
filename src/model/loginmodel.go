@@ -9,7 +9,7 @@ import (
 
 //LoginRequest request struct
 type LoginRequest struct {
-	Login    string `form:"login" json:"login"`
+	Email    string `form:"email" json:"email"`
 	Password string `form:"password" json:"password"`
 }
 
@@ -41,7 +41,7 @@ func (model *LoginRequest) Authenticate() LoginResponse {
 		return response
 	}
 
-	query := fmt.Sprintf("select login from users where login='%v' and password='%v'", model.Login, model.Password)
+	query := fmt.Sprintf("select login from users where email='%v' and password='%v'", model.Email, model.Password)
 	rows, ok := connection.ExecuteQuery(query, con)
 	if ok {
 		var loginRecords = []LoginRecord{}

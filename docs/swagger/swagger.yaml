@@ -6,7 +6,7 @@ definitions:
     type: object
   model.LoginRequest:
     properties:
-      login:
+      email:
         type: string
       password:
         type: string
@@ -35,6 +35,8 @@ definitions:
       groupID:
         type: integer
       name:
+        type: string
+      password:
         type: string
     type: object
 info:

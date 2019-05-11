@@ -164,7 +164,7 @@
         "model.LoginRequest": {
             "type": "object",
             "properties": {
-                "login": {
+                "email": {
                     "type": "string"
                 },
                 "password": {
@@ -207,6 +207,9 @@
                     "type": "integer"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

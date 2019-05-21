@@ -3,7 +3,6 @@ package model
 import (
 	"cashapi/src/database/connection"
 	"encoding/json"
-	"fmt"
 	"log"
 )
 
@@ -30,7 +29,7 @@ func (model *LoginRequest) ToJSON() string {
 }
 
 //Authenticate the user
-func (model *LoginRequest) Authenticate() LoginResponse {
+func (request *LoginRequest) Authenticate() LoginResponse {
 
 	response := LoginResponse{
 		Token: ""}
@@ -41,24 +40,17 @@ func (model *LoginRequest) Authenticate() LoginResponse {
 		return response
 	}
 
-	query := fmt.Sprintf("select login from users where email='%v' and password='%v'", model.Email, model.Password)
-	rows, ok := connection.ExecuteQuery(query, con)
-	if ok {
-		var loginRecords = []LoginRecord{}
-		var loginRec = LoginRecord{}
-		for rows.Next() {
-			err := rows.Scan(&loginRec.login)
-			if err == nil {
-				loginRecords = append(loginRecords, loginRec)
-			} else {
-				log.Fatal(err)
-			}
-		}
-		if len(loginRecords) > 0 {
-			response.Token = loginRecords[0].login
-			response.Valid = true
-		}
+	var users []User
+	con.Where(map[string]interface{}{"email": request.Email, "password": request.Password}).Find(&users)
+
+	if len(users) > 0 {
+		response.Valid = true
+		response.Token = "12313123"
+	} else {
+		response.Valid = false
+		response.Token = ""
 	}
+
 	defer con.Close()
 
 	return response

@@ -141,4 +141,8 @@ paths:
             items:
               $ref: '#/definitions/model.Group'
             type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
       summary: Lista grupo de usuarios

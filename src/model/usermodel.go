@@ -42,17 +42,17 @@ func (u *User) Insert() (*User, error) {
 }
 
 // ListGroups all
-func ListGroups() []Group {
+func ListGroups() ([]Group, error) {
 
 	con, err := connection.Open()
 	if err != nil {
 		log.Fatal(err)
-		return nil
+		return nil, err
 	}
 
 	groups := make([]Group, 0)
 	con.Table("groups").Find(&groups)
 	con.Close()
 
-	return groups
+	return groups, nil
 }

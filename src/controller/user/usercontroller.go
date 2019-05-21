@@ -39,14 +39,15 @@ func Create(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {array} model.Group
+// @Failure 500 {string} error
 // @Header 200 {string} Token "qwerty"
 // @Router /user/groups [get]
 func Groups(c *gin.Context) {
-	groups := model.ListGroups()
+	groups, err := model.ListGroups()
 
 	if groups != nil {
 		c.JSON(200, groups)
 	} else {
-		c.JSON(500, nil)
+		c.JSON(500, err)
 	}
 }

@@ -4,6 +4,8 @@ import (
 	"cashapi/src/model"
 	"net/http"
 
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,21 +34,31 @@ func Create(c *gin.Context) {
 	}
 }
 
-// Groups godoc
+// List godoc
 // @Summary Lista grupo de usuarios
 // @Description Lista de grupo de usuarios
 // @ID user-create
 // @Accept json
 // @Produce json
-// @Success 200 {array} model.Group
+// @Param body body model.User true "User"
+// @Success 200 {array} model.User
 // @Failure 500 {string} error
 // @Header 200 {string} Token "qwerty"
-// @Router /user/groups [get]
-func Groups(c *gin.Context) {
-	groups, err := model.ListGroups()
+// @Router /user/list [post]
+func List(c *gin.Context) {
 
-	if groups != nil {
-		c.JSON(200, groups)
+	var userRequest model.User
+	err := c.ShouldBindJSON(&userRequest)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	fmt.Println(&userRequest)
+	users, err := model.ListUsers(&userRequest)
+
+	if users != nil {
+		c.JSON(200, users)
 	} else {
 		c.JSON(500, err)
 	}

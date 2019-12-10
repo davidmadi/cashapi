@@ -41,6 +41,23 @@ func (u *User) Insert() (*User, error) {
 	return nil, errors.New("")
 }
 
+// Insert user
+func (g *Group) Insert() (*Group, error) {
+
+	con, err := connection.Open()
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	con.Create(&g)
+	if g.ID > 0 {
+		return g, nil
+	}
+
+	return nil, errors.New("")
+}
+
 // ListGroups all
 func ListGroups() ([]Group, error) {
 
@@ -55,4 +72,20 @@ func ListGroups() ([]Group, error) {
 	con.Close()
 
 	return groups, nil
+}
+
+// ListUsers all
+func ListUsers(requestModel *User) ([]User, error) {
+
+	con, err := connection.Open()
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	users := make([]User, 0)
+	con.Table("users").Where("name ILIKE ?", "%"+requestModel.Name+"%").Find(&users)
+	con.Close()
+
+	return users, nil
 }

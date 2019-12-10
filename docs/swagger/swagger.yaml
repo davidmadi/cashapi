@@ -70,6 +70,57 @@ paths:
             $ref: '#/definitions/model.LoginResponse'
             type: object
       summary: Efetua login
+  /group/create:
+    post:
+      consumes:
+      - application/json
+      description: Cria grupo de usuários
+      operationId: group-create
+      parameters:
+      - description: Group
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Group'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/model.Group'
+            type: object
+      summary: Cria grupo de usuários
+  /group/list:
+    get:
+      consumes:
+      - application/json
+      description: Lista de grupo de usuarios
+      operationId: user-create
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            items:
+              $ref: '#/definitions/model.Group'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Lista grupo de usuarios
   /payment/create:
     post:
       consumes:
@@ -122,12 +173,20 @@ paths:
             $ref: '#/definitions/model.User'
             type: object
       summary: Cria usuario
-  /user/groups:
-    get:
+  /user/list:
+    post:
       consumes:
       - application/json
       description: Lista de grupo de usuarios
       operationId: user-create
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+          type: object
       produces:
       - application/json
       responses:
@@ -139,7 +198,7 @@ paths:
               type: string
           schema:
             items:
-              $ref: '#/definitions/model.Group'
+              $ref: '#/definitions/model.User'
             type: array
         "500":
           description: Internal Server Error

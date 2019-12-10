@@ -44,6 +44,82 @@
                 }
             }
         },
+        "/group/create": {
+            "post": {
+                "description": "Cria grupo de usuários",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Cria grupo de usuários",
+                "operationId": "group-create",
+                "parameters": [
+                    {
+                        "description": "Group",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.Group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.Group"
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/group/list": {
+            "get": {
+                "description": "Lista de grupo de usuarios",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Lista grupo de usuarios",
+                "operationId": "user-create",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Group"
+                            }
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/payment/create": {
             "post": {
                 "description": "Cria um pagamento",
@@ -121,8 +197,8 @@
                 }
             }
         },
-        "/user/groups": {
-            "get": {
+        "/user/list": {
+            "post": {
                 "description": "Lista de grupo de usuarios",
                 "consumes": [
                     "application/json"
@@ -132,13 +208,25 @@
                 ],
                 "summary": "Lista grupo de usuarios",
                 "operationId": "user-create",
+                "parameters": [
+                    {
+                        "description": "User",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/model.Group"
+                                "$ref": "#/definitions/model.User"
                             }
                         },
                         "headers": {
